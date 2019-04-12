@@ -1,0 +1,27 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC country
+    DATASOURCENAME=ds_mysql
+    CATALOGNAME='${databases.admin.views.jdbc.country.CATALOGNAME}' 
+    RELATIONNAME='country' 
+    OUTPUTSCHEMA (
+        name = 'name' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='20', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        code = 'code' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE country I18N us_pst (
+        name:text (sourcetyperadix = '10', sourcetypesize = '20', description = '', sourcetypeid = '12'), 
+        code:text (sourcetyperadix = '10', sourcetypesize = '10', description = '', sourcetypeid = '12')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD country(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD name (any) OPT ANY
+             ADD code (any) OPT ANY
+        )
+        OUTPUTLIST (code, name
+        )
+        WRAPPER (jdbc country)
+    );
+

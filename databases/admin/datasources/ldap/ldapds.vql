@@ -1,0 +1,8 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE LDAP ldapds
+    URI='${databases.admin.datasources.ldap.ldapds.URI}'
+    USERNAME='${databases.admin.datasources.ldap.ldapds.USERNAME}'
+    USERPASSWORD='${databases.admin.datasources.ldap.ldapds.USERPASSWORD}' ${databases.admin.datasources.ldap.ldapds.USERPASSWORD.ENCRYPTED}
+    USEPAGING=FALSE
+    MAXPAGESIZE=1000;
+
